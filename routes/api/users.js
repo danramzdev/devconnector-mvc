@@ -1,9 +1,10 @@
 const express = require("express");
+const usersValidator = require('../../utils/middleware/usersValidator')
 
 module.exports = (app, controller) => {
   const router = express.Router();
 
-  app.use("/users", router);
+  app.use("/api/users", router);
 
-  router.get("/", controller.index);
+  router.post("/", usersValidator, controller.register);
 };
