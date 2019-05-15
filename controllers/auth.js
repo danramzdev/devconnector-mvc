@@ -1,6 +1,13 @@
+const User = require("../models/User");
+
 class AuthController {
-  static index(req, res) {
-    res.send("Auth Route /");
+  static async index(req, res) {
+    try {
+      const user = await User.findById(req.user.id).select("-password");
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
   }
 }
 
