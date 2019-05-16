@@ -1,5 +1,5 @@
 const express = require("express");
-const usersValidator = require("../../utils/schemas/usersValidator");
+const usersValidator = require("../../utils/validators/usersValidator");
 
 module.exports = (app, controller) => {
   const router = express.Router();
