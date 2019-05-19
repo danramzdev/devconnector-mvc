@@ -11,4 +11,5 @@ module.exports = (app, controller) => {
   router.post("/", auth, profileValidator, controller.create);
   router.get("/", controller.getAllProfiles);
   router.get("/user/:user_id", controller.getProfileById);
+  router.delete("/", auth, controller.delete);
 };

@@ -115,20 +115,30 @@ class ProfileController {
       }).populate("userId", ["name", "avatar"]);
 
       if (!profile) {
-        return res
-          .status(400)
-          .json({ msg: "Profile not found" });
+        return res.status(400).json({ msg: "Profile not found" });
       }
 
       res.json(profile);
     } catch (err) {
       console.error(err.message);
 
-      if (err.kind == 'ObjectId') {
-        return res
-          .status(400)
-          .json({ msg: "Profile not found" });
+      if (err.kind == "ObjectId") {
+        return res.status(400).json({ msg: "Profile not found" });
       }
+      res.status(500).send("Server Error");
+    }
+  }
+
+  static async delete(req, res) {
+    try {
+      // Remove Profile
+      await Profile.findOneAndRemove({ userId: req.user.id });
+      // remove User
+      await User.findOneAndRemove({ _id: req.user.id });
+
+      res.json({ msg: "User deleted" });
+    } catch (err) {
+      console.error(err.message);
       res.status(500).send("Server Error");
     }
   }
