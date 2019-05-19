@@ -6,7 +6,7 @@ const User = require("../models/User");
 class ProfileController {
   static async index(req, res) {
     try {
-      const profile = await Profile.findOne({ user: req.user.id }).populate(
+      const profile = await Profile.findOne({ userId: req.user.id }).populate(
         "user",
         ["name", "avatar"]
       );
@@ -92,6 +92,45 @@ class ProfileController {
     }
 
     res.send(profileFields);
+  }
+
+  static async getAllProfiles(req, res) {
+    try {
+      const profiles = await Profile.find().populate("userId", [
+        "name",
+        "avatar"
+      ]);
+
+      res.json(profiles);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+
+  static async getProfileById(req, res) {
+    try {
+      const profile = await Profile.find({
+        userId: req.params.user_id
+      }).populate("userId", ["name", "avatar"]);
+
+      if (!profile) {
+        return res
+          .status(400)
+          .json({ msg: "Profile not found" });
+      }
+
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+
+      if (err.kind == 'ObjectId') {
+        return res
+          .status(400)
+          .json({ msg: "Profile not found" });
+      }
+      res.status(500).send("Server Error");
+    }
   }
 }
 

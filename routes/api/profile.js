@@ -9,4 +9,6 @@ module.exports = (app, controller) => {
 
   router.get("/me", auth, controller.index);
   router.post("/", auth, profileValidator, controller.create);
+  router.get("/", controller.getAllProfiles);
+  router.get("/user/:user_id", controller.getProfileById);
 };
