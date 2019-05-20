@@ -18,4 +18,5 @@ module.exports = (app, controller) => {
   router.delete("/experience/:exp_id", auth, controller.deleteExperience);
   router.put("/education", auth, educationValidator, controller.education);
   router.delete("/education/:edu_id", auth, controller.deleteEducation);
+  router.get("/github/:username", controller.github);
 };
