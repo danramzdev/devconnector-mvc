@@ -92,17 +92,27 @@ class PostsController {
   static async like(req, res) {
     try {
       const post = await Post.findById(req.params.id);
+      let msg;
 
-      // Check if like already exists
-      if (post.likes.filter(like => like.user.toString() === req.user.id)) {
-        return res.status(400).json({ msg: "Post already liked" });
+      // Check if like already exists to remove
+      if (
+        post.likes.filter(like => like.user.toString() === req.user.id).length >
+        0
+      ) {
+        const removeIndex = post.likes
+          .map(like => like.user.toString())
+          .indexOf(req.user.id);
+
+        post.likes.splice(removeIndex, 1);
+        msg = "Unliked";
+      } else {
+        post.likes.unshift({ user: req.user.id });
+        msg = "Liked";
       }
-
-      post.likes.unshift({ user: req.user.id });
 
       await post.save();
 
-      res.json(post.likes);
+      res.json({ postLikes: post.likes, msg });
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
