@@ -74,8 +74,8 @@ class PostsController {
         return res.status(401).json({ msg: "User not authorized" });
       }
 
-      console.log(post.userId)
-      console.log(req.user.id)
+      console.log(post.userId);
+      console.log(req.user.id);
 
       await post.remove();
 
@@ -85,6 +85,26 @@ class PostsController {
       if (err.kind === "ObjectId") {
         return res.status(404).json({ msg: "Post not found" });
       }
+      res.status(500).send("Server Error");
+    }
+  }
+
+  static async like(req, res) {
+    try {
+      const post = await Post.findById(req.params.id);
+
+      // Check if like already exists
+      if (post.likes.filter(like => like.user.toString() === req.user.id)) {
+        return res.status(400).json({ msg: "Post already liked" });
+      }
+
+      post.likes.unshift({ user: req.user.id });
+
+      await post.save();
+
+      res.json(post.likes);
+    } catch (err) {
+      console.error(err.message);
       res.status(500).send("Server Error");
     }
   }
