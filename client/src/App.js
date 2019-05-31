@@ -12,6 +12,7 @@ import Home from "./components/pages/Home";
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
 import Dashboard from "./components/pages/Dashboard";
+import CreateProfile from "./components/pages/profile/forms/CreateProfile";
 import PrivateRoute from "./components/routing/PrivateRoute";
 
 // Actions
@@ -43,6 +44,11 @@ const App = () => {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute
+                exact
+                path="/create-profile"
+                component={CreateProfile}
+              />
             </Switch>
           </section>
         </Fragment>
