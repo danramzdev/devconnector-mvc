@@ -12,7 +12,7 @@ import Home from "./components/pages/Home";
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
 import Dashboard from "./components/pages/Dashboard";
-import CreateProfile from "./components/pages/profile/forms/CreateProfile";
+import CreateProfile from "./components/profile/forms/CreateProfile";
 import PrivateRoute from "./components/routing/PrivateRoute";
 
 // Actions
