@@ -11,8 +11,9 @@ import Alert from "./components/layout/Alert";
 import Home from "./components/pages/Home";
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
-import Dashboard from "./components/pages/Dashboard";
+import Dashboard from "./components/pages/dashboard/Dashboard";
 import CreateProfile from "./components/profile/forms/CreateProfile";
+import EditProfile from "./components/profile/forms/EditProfile";
 import PrivateRoute from "./components/routing/PrivateRoute";
 
 // Actions
@@ -48,6 +49,11 @@ const App = () => {
                 exact
                 path="/create-profile"
                 component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path="/edit-profile"
+                component={EditProfile}
               />
             </Switch>
           </section>
