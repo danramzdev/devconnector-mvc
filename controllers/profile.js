@@ -5,6 +5,7 @@ const config = require("config");
 // Models
 const Profile = require("../models/Profile");
 const User = require("../models/User");
+const Post = require("../models/Post");
 
 class ProfileController {
   static async index(req, res) {
@@ -134,6 +135,8 @@ class ProfileController {
 
   static async delete(req, res) {
     try {
+      // Remove user posts
+      await Post.deleteMany({ userId: req.user.id });
       // Remove Profile
       await Profile.findOneAndRemove({ userId: req.user.id });
       // remove User
@@ -287,7 +290,7 @@ class ProfileController {
           return res.status(404).json({ msg: "No github profile found" });
         }
 
-        res.json(JSON.parse(body))
+        res.json(JSON.parse(body));
       });
     } catch (err) {
       console.error(err.message);
