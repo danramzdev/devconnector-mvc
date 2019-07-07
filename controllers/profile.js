@@ -114,7 +114,7 @@ class ProfileController {
 
   static async getProfileById(req, res) {
     try {
-      const profile = await Profile.find({
+      const profile = await Profile.findOne({
         userId: req.params.user_id
       }).populate("userId", ["name", "avatar"]);
 
