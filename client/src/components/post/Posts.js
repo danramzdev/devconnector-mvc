@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import PostItem from "./PostItem";
 import Spinner from "../layout/Spinner";
 import { getPosts } from "../../actions/post";
 
@@ -9,7 +10,22 @@ const Posts = ({ post: { posts, loading }, getPosts }) => {
     getPosts();
   }, [getPosts]);
 
-  return <div>Posts</div>;
+  return loading ? (
+    <Spinner></Spinner>
+  ) : (
+    <Fragment>
+      <h1 class="large text-primary">Posts</h1>
+      <p class="lead">
+        <i class="fas fa-user"></i> Welcome to the community!
+      </p>
+      {/* Post Form */}
+      <div class="posts">
+        {posts.map(post => (
+          <PostItem key={post._id} post={post} />
+        ))}
+      </div>
+    </Fragment>
+  );
 };
 
 Posts.propTypes = {
