@@ -74,9 +74,6 @@ class PostsController {
         return res.status(401).json({ msg: "User not authorized" });
       }
 
-      console.log(post.userId);
-      console.log(req.user.id);
-
       await post.remove();
 
       res.json({ msg: "Post deleted" });
@@ -104,15 +101,13 @@ class PostsController {
           .indexOf(req.user.id);
 
         post.likes.splice(removeIndex, 1);
-        msg = "Unliked";
       } else {
         post.likes.unshift({ userId: req.user.id });
-        msg = "Liked";
       }
 
       await post.save();
 
-      res.json({ postLikes: post.likes, msg });
+      res.json(post.likes);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -173,7 +168,7 @@ class PostsController {
 
       post.comments.splice(removeIndex, 1);
 
-      await post.save()
+      await post.save();
 
       res.json(post.comments);
     } catch (err) {
