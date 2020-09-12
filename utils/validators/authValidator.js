@@ -1,6 +1,6 @@
-const { check } = require("express-validator/check");
+const { check } = require("express-validator");
 
 module.exports = [
   check("email", "Please include a valid email").isEmail(),
-  check("password", "Password required").exists()
+  check("password", "Password required").exists(),
 ];

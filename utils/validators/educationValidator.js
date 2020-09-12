@@ -1,4 +1,4 @@
-const { check } = require("express-validator/check");
+const { check } = require("express-validator");
 
 module.exports = [
   check("school", "School is required")
@@ -12,5 +12,5 @@ module.exports = [
     .isEmpty(),
   check("from", "From date is required")
     .not()
-    .isEmpty()
-]
+    .isEmpty(),
+];

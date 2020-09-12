@@ -1,4 +1,4 @@
-const { check } = require("express-validator/check");
+const { check } = require("express-validator");
 
 module.exports = [
   check("status", "Status is required")
@@ -6,5 +6,5 @@ module.exports = [
     .isEmpty(),
   check("skills", "Skills required")
     .not()
-    .isEmpty()
+    .isEmpty(),
 ];
