@@ -23,7 +23,7 @@
     "mongoose": "^5.10.0",
     "react-router-dom": "^5.0.0",
     "request": "^2.88.0",
-    "snyk": "^1.374.0"
+    "snyk": "^1.465.0"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
